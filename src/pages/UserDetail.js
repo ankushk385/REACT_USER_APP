@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useUsers } from '../contexts/UsersContext';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useUsers } from "../contexts/UsersContext";
 
-export default function UserDetail(){
+export default function UserDetail() {
   const { id } = useParams();
   const { getUser, updateUser } = useUsers();
   const [user, setUser] = useState(null);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
 
-  useEffect(()=>{
+  useEffect(() => {
     const u = getUser(id);
     setUser(u);
-    if(u) setStatus(u.status);
-  },[id, getUser]);
+    if (u) setStatus(u.status);
+  }, [id, getUser]);
 
-  function save(){
+  function save() {
     updateUser(id, { status });
-    alert('Saved');
+    alert("Saved");
   }
 
-  if(!user) return <div className="card">User not found</div>;
+  if (!user) return <div className="card">User not found</div>;
 
   return (
     <div>
@@ -42,12 +42,14 @@ export default function UserDetail(){
 
       <div className="card">
         <h4>Status</h4>
-        <select value={status} onChange={e=>setStatus(e.target.value)}>
+        <select value={status} onChange={(e) => setStatus(e.target.value)}>
           <option>Active</option>
           <option>Inactive</option>
         </select>
-        <div style={{marginTop:8}}>
-          <button className="btn" onClick={save}>Save</button>
+        <div style={{ marginTop: 8 }}>
+          <button className="btn" onClick={save}>
+            Save
+          </button>
         </div>
       </div>
     </div>
