@@ -1,0 +1,22 @@
+/* Simple global styles */
+:root{
+  --maxw: 980px;
+  --muted:#666;
+}
+*{box-sizing:border-box}
+body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial; margin:0;background:#f6f7fb;color:#111;padding:20px;}
+.container{max-width:var(--maxw);margin:0 auto;}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.brand{font-weight:700;font-size:20px}
+.card{background:#fff;padding:16px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:12px}
+.btn{background:#111;color:#fff;padding:8px 12px;border-radius:6px;border:0;cursor:pointer}
+.small{font-size:13px;color:var(--muted)}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:8px;border-bottom:1px solid #eee;text-align:left}
+.form-row{display:flex;gap:8px;align-items:center}
+input,select{padding:8px;border:1px solid #ddd;border-radius:6px}
+.link{color:blue;cursor:pointer;text-decoration:underline}
+.toast{position:fixed;right:20px;bottom:20px;background:#111;color:#fff;padding:10px 14px;border-radius:8px}
+@media(max-width:600px){
+  .form-row{flex-direction:column;align-items:stretch}
+}
