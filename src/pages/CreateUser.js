@@ -5,32 +5,38 @@ import { useNavigate } from "react-router-dom";
 export default function CreateUser() {
   const { addUser } = useUsers();
   const nav = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [company, setCompany] = useState("");
-  const [status, setStatus] = useState("Active");
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    status: "Active",
+  });
+
   const [msg, setMsg] = useState("");
+
+  function handleInput(e) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }
 
   function submit(e) {
     e.preventDefault();
-    if (!name || !email) {
+
+    if (!formData.name || !formData.email) {
       setMsg("Name and email required");
       return;
     }
+
     addUser({
-      name,
-      email,
-      phone,
-      status,
-      company,
+      ...formData,
       website: "",
       address: "",
     });
+
     setMsg("Created");
-    setTimeout(() => {
-      nav("/users");
-    }, 700);
+    setTimeout(() => nav("/users"), 700);
   }
 
   return (
@@ -39,43 +45,53 @@ export default function CreateUser() {
       <form onSubmit={submit}>
         <div style={{ marginBottom: 8 }}>
           <input
+            name="name"
             placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={formData.name}
+            onChange={handleInput}
           />
         </div>
+
         <div style={{ marginBottom: 8 }}>
           <input
+            name="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleInput}
           />
         </div>
+
         <div style={{ marginBottom: 8 }}>
           <input
+            name="phone"
             placeholder="Phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            value={formData.phone}
+            onChange={handleInput}
           />
         </div>
+
         <div style={{ marginBottom: 8 }}>
           <input
+            name="company"
             placeholder="Company"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
+            value={formData.company}
+            onChange={handleInput}
           />
         </div>
+
         <div style={{ marginBottom: 8 }}>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <select name="status" value={formData.status} onChange={handleInput}>
             <option>Active</option>
             <option>Inactive</option>
           </select>
         </div>
+
         {msg && (
           <div className="small" style={{ color: "green", marginBottom: 8 }}>
             {msg}
           </div>
         )}
+
         <button className="btn" type="submit">
           Create
         </button>
